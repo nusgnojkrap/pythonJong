@@ -2,46 +2,25 @@
 1007
 '''
 import math
-miniii = []
-def jongsun(case, a, b, sumx, sumy, n, minire):
-    print("----")
-    print(sumx)
-    print(minire)
-    print(case)
-    if len(case)* 2 == int(n):
-        result = (a - 2 * sumx)*(a - 2 * sumx) + (b - 2 * sumy)*(b - 2 * sumy)
-        try:
-            if minire == -1:
-                minire = result
-            elif minire > result:
-                minire = result
-            return minire
-        except:
-            print("if")
-            print(case)
-            print("minire : " + str(minire))
-            print("result : " + str(result))
-            print("-----")
-            exit(0)
+def jong(case, a, b, sumX, sumY, n, min, position):
+    if int(position) == 0:
+        result = (a - 2 * sumX) * (a - 2 * sumX) + (b - 2 * sumY) * (b - 2 * sumY)
+        if min == -1:
+            min = result
+            return min
+        if min > result:
+            min = result
+        return min
 
+    for i in range(0, len(case) - int(position)):
+        sumX = sumX + int(case[i][0])
+        sumY = sumY + int(case[i][1])
+        copyArr = case[i+1:].copy()
+        min = jong(copyArr, a, b, sumX, sumY, n, min, int(position)-1)
+        sumX = sumX - int(case[i][0])
+        sumY = sumY - int(case[i][1])
 
-    for i in range (0, len(case)):
-        sumx = sumx + int(case[i][0])
-        sumy = sumy + int(case[i][1])
-        ppp = case[i]
-        popArr = case.copy()
-        popArr.pop(i)
-        newmini = int(jongsun(popArr, a, b, sumx, sumy, n, min))
-        try:
-            if minire == -1:
-                minire = newmini
-            elif minire > newmini:
-                minire = newmini
-        except:
-            print("minire : " + str(minire))
-            print("newmini : " + str(newmini))
-        sumx = sumx - int(case[i][0])
-        sumy = sumy - int(case[i][1])
+    return min
 
 def ahrl(case):
     allx = 0
@@ -51,27 +30,31 @@ def ahrl(case):
         allx = allx + int(case[i][0])
         ally = ally + int(case[i][1])
 
-    result = jongsun(case, allx, ally, 0, 0, len(case), -1)
-
-    #result = min(miniii, key=lambda x: float(x))
-    print(result)
+    n = len(case)
+    n = int(n)
+    position = n / 2
+    position = int(position)
+    result = jong(case, allx, ally, 0, 0, n, -1, position)
     result = math.sqrt(result)
-    print(result)
     return result
+
 ##|sum| = 2 * sqrt( v(xn - allx/2)^2 + (yn - ally/2)^2 )
 def startinput():
     result = []
     testcase = input()
-    for i in range(0, int(testcase)):
+    testcase = int(testcase)
+    for i in range(0, testcase):
         n = input()
+        n = int(n)
         case = []
-        for i in range(0, int(n)):
+        for j in range(0, n):
             x, y = input().split()
             case.append([x, y])
         result.append(ahrl(case))
 
-    #for i in range(0, len(result)):
-        #print(result[i])
+    for i in range(0, len(result)):
+        print(result[i])
+
 startinput()
 
 
