@@ -1,5 +1,5 @@
 '''
-1007
+1007 OK
 '''
 import math
 def jong(case, a, b, sumX, sumY, n, min, position):

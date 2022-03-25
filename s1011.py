@@ -31,28 +31,53 @@
 4
 '''
 
+'''
+1011
+'''
+
+'''
+input
+3
+0 3
+1 5
+45 50
+
+output
+3
+3
+4
+'''
+def jong(start, end):
+    length = end - start - 2
+    half = length / 2
+    half = int(half)
+
+    nowdistance = 0
+    n = 0
+    for i in range(0, half):
+        n = n + 1
+        nowdistance = nowdistance + n
+    for i in range(half, length):
+        n = n - 1
+        nowdistance = nowdistance + n
+    return nowdistance
+
 def start():
     testcase = input()
     testcase = int(testcase)
     resultArr = []
     for i in range(0, testcase):
-        x, y = input().split()
-        x = int(x)
-        y = int(y)
-        result = jong(x, y)
+        a, b = input().split()
+        a = int(a)
+        b = int(b)
+        result = jong(a, b)
         resultArr.append(result)
-
     for i in range(0, testcase):
-        print(str(resultArr[i]))
-    return
-def jong(x, y):
-    k = y - x##거리
+        print(resultArr[i])
 
 
 
 start()
-
-
 
 
 
