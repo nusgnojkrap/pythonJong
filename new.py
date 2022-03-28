@@ -15,9 +15,7 @@ YES
 '''
 
 def jong(x, result):
-    print(result)
     print(x)
-    print(str(len(x)))
     if len(x) == 0:
         return result
     if len(x) == 1:
@@ -27,29 +25,31 @@ def jong(x, result):
         if x[0] + x[1] == "01":
             result = "YES"
             result = jong(x[2:], result)
+        else:
+            result = "NO"
+            return result
     else:
         if x[0] + x[1] == "01":
             result = "YES"
             result = jong(x[2:], result)
-
-        if (len(x) == 2):
-            return result
-
-        if x[0] + x[1] + x[2] == "100":
+        elif x[0] + x[1] + x[2] == "100":
             result = "YES"
             for i in range(3, len(x)):
                 if x[i] == "1":
                     break
+            flag = 0
             for j in range(i, len(x)):
                 if x[j] == "0":
+                    flag=1
                     break
+            if flag == 1:
+
             if x[j] == '1':
+                if [j+1] == '1':
                 result= jong(x[j+1:], result)
             else:
                 result = jong(x[j:], result)
         else:
-            print(x)
-            print("여기로 맨마지막에 들어옵니다.")
             result = "NO"
             return result
 
