@@ -35,35 +35,23 @@
 
 import math
 
-def primecheck(prime, number): #flag = 0 : 안나눠짐
-    flag = 0
-    for i in range(0, len(prime)):
-        if number % prime[i] == 0:
-            flag = prime[i]
-            break
-    return flag
-
 def jong(prime, min, max):
+    n = max - min
     array = []
     array.append([0, False])
     for i in range(min, max+1):
         array.append([i, True])
+    result = []
+    for i in range(1, len(array)):
+        if array[i][1]:
+            result.append(array[i][0])
+            for j in range(2 * i, len(array), i):
+                array[j][1] = False
     print(array)
-
-    result= []
-    for i in range(0, len(prime)):
-        start = min % prime[i]
-        start = min + start
-        end = max // prime[i]
-        resultt = end - start + 2
-        result.append(resultt)
-
     print(result)
-    count = 0
-    for i in range(0, len(result)):
-        count = count + result[i]
-
+    count = len(result)
     return count
+
 def primeNumber(max):
     n = max
     a = [False, False] + [True] * (n - 1)
@@ -85,5 +73,6 @@ def start():
     result = jong(prime, min, max)
 
     print(result)
+
 
 start()

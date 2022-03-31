@@ -35,7 +35,8 @@
 
 import math
 
-def primecheck(prime, number): #flag = 0 : 안나눠짐
+
+def primecheck(prime, number):
     flag = 0
     for i in range(0, len(prime)):
         if number % prime[i] == 0:
@@ -44,37 +45,48 @@ def primecheck(prime, number): #flag = 0 : 안나눠짐
     return flag
 
 def jong(prime, min, max):
-    array = []
-    array.append([0, False])
-    for i in range(min, max+1):
-        array.append([i, True])
-    print(array)
-
-    result= []
+    prime2 = []
+    leen = max - min
     for i in range(0, len(prime)):
-        start = min % prime[i]
-        start = min + start
-        end = max // prime[i]
-        resultt = end - start + 2
-        result.append(resultt)
+        prime2.append(int(prime[i]) * int(prime[i]))
+    array = []
+    for i in range(min, max + 1):
+        array.append(i)
+    for i in range(0, len(array)):
+        if array[i] != 0:
+            checkprime = primecheck(prime2, array[i])
+            if checkprime != 0: #해당 경우의 배수를 array에서 모두 삭제 첫 번째부터 전부 삭제
+                last = leen // checkprime
+                for j in range(0, last):
+                    if len(array) < i + j*checkprime:
+                        break
+                    array[i + j*checkprime] = 0
 
-    print(result)
     count = 0
-    for i in range(0, len(result)):
-        count = count + result[i]
-
+    for i in range(0, len(array)):
+        if array[i] !=0:
+            count = count + 1
     return count
-def primeNumber(max):
-    n = max
-    a = [False, False] + [True] * (n - 1)
-    primes = []
 
-    for i in range(2, n + 1):
-        if a[i]:
-            primes.append(i*i)
-            for j in range(2 * i, n + 1, i):
-                a[j] = False
-    return primes
+def primeNumber(max):
+    number = []
+    for i in range(0, max - 1):
+        number.append(i + 2)
+    for i in range(0, max - 1):
+        if number[i] != 0:
+            for j in range(i + 1, max):
+                if j == len(number):
+                    break
+                else:
+                    if number[j] != 0:
+                        if number[j] % number[i] == 0:
+                            number[j] = 0
+    prime = []
+    for i in range(0, len(number)):
+        if number[i] != 0:
+            prime.append(number[i])
+    return prime
+
 
 def start():
     min, max = input().split()
@@ -82,8 +94,11 @@ def start():
     max = int(max)
     sqrtmax = int(math.sqrt(max)) + 1
     prime = primeNumber(sqrtmax)
+    print(prime)
+    return
     result = jong(prime, min, max)
 
     print(result)
+
 
 start()
