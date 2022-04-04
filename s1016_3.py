@@ -22,8 +22,12 @@ def jong(prime, min, max):
         start = math.ceil(min / prime[i])
         end = max // prime[i]
         for j in range(start, end+1):
-            array[j * prime[i] - min] = 0
-
+            try:
+                array[j * prime[i]-min] = 0
+            except:
+                print("j : " + str(j))
+                print("prime[i] : " + str(prime[i]))
+                print("j * prime[i] : " + str(j * prime[i]))
     count = 0
     for i in range(0, len(array)):
         if array[i] != 0:

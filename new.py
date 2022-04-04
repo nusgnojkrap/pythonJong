@@ -1,69 +1,40 @@
 '''
-1016
+1017
+지민이는 수의 리스트가 있을 때, 이를 짝지어 각 쌍의 합이 소수가 되게 하려고 한다. 예를 들어, {1, 4, 7, 10, 11, 12}가 있다고 하자. 지민이는 다음과 같이 짝지을 수 있다.
 
-어떤 정수 X가 1보다 큰 제곱수로 나누어 떨어지지 않을 때,
-그 수를 제곱ㄴㄴ수라고 한다.
-제곱수는 정수의 제곱이다. min과 max가 주어지면, min보다 크거나 같고, max보다 작거나 같은 제곱ㄴㄴ수가 몇 개 있는지 출력한다.
-1 4 9 16 25 36 49 64 81 100 . . .
+1 + 4 = 5, 7 + 10 = 17, 11 + 12 = 23
 
-첫째 줄에 두 정수 min과 max가 주어진다.
-첫째 줄에 min보다 크거나 같고, max보다 작거나 같은 제곱ㄴㄴ수의 개수를 출력한다.
+또는
 
-1 10
-7
+1 + 10 = 11, 4 + 7 = 11, 11 + 12 = 23
 
-15 15
-1
+수의 리스트가 주어졌을 때, 지민이가 모든 수를 다 짝지었을 때, 첫 번째 수와 어떤 수를 짝지었는지 오름차순으로 출력하는 프로그램을 작성하시오. 위의 예제에서 1 + 12 = 13으로 소수이다. 그러나, 남은 4개의 수를 합이 소수가 되게 짝지을 수 있는 방법이 없다. 따라서 위의 경우 정답은 4, 10이다.
 
-1 1000
-608
 
-1. 소수찾기
- 1.1  2 ~ sqrt(max) 까지 에서의 소수 찾기
- 1.2
-2. 각 소수를 제곱
-3. 각 제곱근을 계속 더해주면서 max 보다 클 때 까지 count + 1
+첫째 줄에 리스트의 크기 N이 주어진다. N은 50보다 작거나 같은 자연수이며, 짝수이다. 둘째 줄에 리스트에 들어있는 수가 주어진다. 리스트에 들어있는 수는 1,000보다 작거나 같은 자연수이며, 중복되지 않는다.
 
-소수찾기 : 채 이용
-2 ~ sqrt(max) 에서
-2로 나누어지는거 지우기
-3로 나누어지는거 지우기
- . . .
-1000000000000 1000001000000
-
+첫째 줄에 정답을 출력한다. 없으면 -1을 출력한다.
 '''
 
 import math
 
-def primecheck(prime, number): #flag = 0 : 안나눠짐
-    flag = 0
-    for i in range(0, len(prime)):
-        if number % prime[i] == 0:
-            flag = prime[i]
-            break
-    return flag
-
 def jong(prime, min, max):
     array = []
-    array.append([0, False])
     for i in range(min, max+1):
-        array.append([i, True])
-    print(array)
+        array.append(i)
 
-    result= []
     for i in range(0, len(prime)):
-        start = min % prime[i]
-        start = min + start
+        start = math.ceil(min / prime[i])
         end = max // prime[i]
-        resultt = end - start + 2
-        result.append(resultt)
+        for j in range(start, end+1):
+            array[j * prime[i] - min] = 0
 
-    print(result)
     count = 0
-    for i in range(0, len(result)):
-        count = count + result[i]
-
+    for i in range(0, len(array)):
+        if array[i] != 0:
+            count = count + 1
     return count
+
 def primeNumber(max):
     n = max
     a = [False, False] + [True] * (n - 1)
