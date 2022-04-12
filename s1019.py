@@ -7,17 +7,11 @@ def jong(n):
     for i in range(0, 10):
         arr.append(0)
 
-    if n < 10:
-        for i in range(1, n + 1):
-            number = i
-            number = str(number)
-            for j in range(0, len(number)):
-                arr[int(number[j])] = arr[int(number[j])] + 1
-        return arr
-    else:
-        strn = str(n)
-        for i in range(0, len(strn)):
-
+    for i in range(1, n+1):
+        number = i
+        number = str(number)
+        for j in range(0, len(number)):
+            arr[int(number[j])] = arr[int(number[j])] + 1
 
 
     return arr
