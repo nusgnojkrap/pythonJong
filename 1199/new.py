@@ -20,8 +20,43 @@
 '''
 
 import sys
-
+import random
 sys.setrecursionlimit(10000)
+
+
+def inputcreate():
+    inputN = 1000
+    inputArr = []
+    for i in range(0, inputN):
+        inputArr.append([])
+        for j in range(0, inputN):
+            inputArr[i].append(0)
+
+    for i in range(0, inputN):
+        for j in range(i, inputN):
+            if i != j:
+                cc = random.randrange(0, 11)
+                inputArr[i][j] = cc
+                inputArr[j][i] = cc
+    return inputArr
+
+def inputtest():
+    inputN = 10
+    inputArr = []
+    for i in range(0, inputN):
+        inputArr.append([])
+        for j in range(0, inputN):
+            inputArr[i].append(0)
+
+    for i in range(0, inputN):
+        for j in range(0, inputN):
+            if i+1 == j:
+                inputArr[i][j] = 1
+            elif i == inputN -1:
+                if j == inputN -1:
+                    inputArr[i][0] =1
+    return inputArr
+
 def recursivejong(arr, startpoint, path, ing):
     check = 0
     for i in range(0, len(arr)):
@@ -79,16 +114,7 @@ def jong(arr):
 
     return result
 def start():
-    n = input()
-    n = int(n)
-    inputArr = []
-    for i in range(0, n):
-        L = list(map(int, input().split()))
-        if len(L) == n:
-            inputArr.append(L)
-        else:
-           return
-    result = jong(inputArr)
+    result = jong(inputtest())
     try:
         result = result[0]
         for i in range(0, len(result)):

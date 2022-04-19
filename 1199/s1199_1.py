@@ -57,8 +57,6 @@ def jong(arr):
     for i in range(0, len(arr)):
         check = check + sum(arr[i])
         pointline = sum(arr[i])
-        if pointline % 2 != 0:
-            return [-2, 'end']
         pointArr.append(pointline)
     if check ==0:
         return -2
